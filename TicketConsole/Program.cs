@@ -29,31 +29,35 @@ namespace TicketConsole
     {
         private UserInput input = new UserInput();
         private List<Ticket> tickets = new List<Ticket>();
-        private string file = "Tickets.csv";
+        private FileReader fr = new FileReader();
 
         public void Run()
         {
+            // open file and create existing tickets
+            List<string[]> ticketArrays = fr.ReadTickets();
+
+            foreach (var t in ticketArrays)
+            {
+                tickets.Add(new Ticket(t[0], t[1], t[2], t[3], t[4], t[5]));
+            }
+
+            // Let the user decide what to do
             switch (input.getMenuOption())
             {
                 case "1":
                     // read file
                     break;
                 case "2":
-                    tickets.Add(CreateTicket());
+                    string summary = input.getTicketSummary();
+                    string status = input.getTicketStatus();
+                    string priority = input.getTicketPriority();
+                    string submitter = input.getTicketSubmitter();
+                    string assigned = input.getTicketAssigned();
+                    string watching = input.getTicketWatching();
+            
+                    tickets.Add(new Ticket(summary, status, priority, submitter, assigned, watching));
                     break;
             }
-        }
-        
-        public Ticket CreateTicket()
-        {
-            string summary = input.getTicketSummary();
-            string status = input.getTicketStatus();
-            string priority = input.getTicketPriority();
-            string submitter = input.getTicketSubmitter();
-            string assigned = input.getTicketAssigned();
-            string watching = input.getTicketWatching();
-            
-            return new Ticket(summary, status, priority, submitter, assigned, watching);
         }
     }
 
@@ -61,8 +65,8 @@ namespace TicketConsole
         {
             public string getMenuOption()
             {
-                Console.WriteLine("1) Read data from file.");
-                Console.WriteLine("2) Create file from data.");
+                Console.WriteLine("1) Read tickets from the file.");
+                Console.WriteLine("2) Add new tickets to the file.");
                 Console.WriteLine("Enter any other key to exit.");
                 return Console.ReadLine();
             }
@@ -177,26 +181,31 @@ namespace TicketConsole
 
         class FileReader
         {
-            public void ReadFile()
+            private string _file = "Tickets.csv";
+            
+            // returns a List with an array of strings, each string corresponding with the ticket fields
+            public List<string[]> ReadTickets()
             {
-                string file = "Tickets.csv";
-                if (File.Exists(file))
+                List<string[]> tickets = new List<string[]>();
+                if (File.Exists(_file))
                 {
-                    StreamReader sr = new StreamReader(file);
-
-                    string[] headers;
-                    string[][] rows = new string[50][];
+                    
+                    StreamReader sr = new StreamReader(_file);
 
                     int counter = 0;
                     while (!sr.EndOfStream)
                     {
                         string line = sr.ReadLine();
-
-                        string[] array = line.Split(',');
-                        rows[counter] = array;
-                        counter++;
+                        if (counter > 1) // Ignore the headers
+                        {
+                            string[] lineArray = line.Split(',');
+                            tickets.Add(lineArray);
+                            counter++;
+                        }
                     }
+                    sr.Close();
                 }
+                return tickets;
             }
         }
     
