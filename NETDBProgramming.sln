@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseGPAArray", "CourseGPA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseGPAFile", "CourseGPAFile\CourseGPAFile.csproj", "{40C56DB4-CAD2-42EB-A519-561DCDE365E4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketConsole", "TicketConsole\TicketConsole.csproj", "{07CF640C-8E48-4495-BC7B-A1577008549F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testing", "Testing\Testing.csproj", "{C954FAD5-864F-425A-BA68-8DC82959BC8F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -31,5 +35,13 @@ Global
 		{40C56DB4-CAD2-42EB-A519-561DCDE365E4}.Debug|x86.Build.0 = Debug|x86
 		{40C56DB4-CAD2-42EB-A519-561DCDE365E4}.Release|x86.ActiveCfg = Release|x86
 		{40C56DB4-CAD2-42EB-A519-561DCDE365E4}.Release|x86.Build.0 = Release|x86
+		{07CF640C-8E48-4495-BC7B-A1577008549F}.Debug|x86.ActiveCfg = Debug|x86
+		{07CF640C-8E48-4495-BC7B-A1577008549F}.Debug|x86.Build.0 = Debug|x86
+		{07CF640C-8E48-4495-BC7B-A1577008549F}.Release|x86.ActiveCfg = Release|x86
+		{07CF640C-8E48-4495-BC7B-A1577008549F}.Release|x86.Build.0 = Release|x86
+		{C954FAD5-864F-425A-BA68-8DC82959BC8F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C954FAD5-864F-425A-BA68-8DC82959BC8F}.Debug|x86.Build.0 = Debug|Any CPU
+		{C954FAD5-864F-425A-BA68-8DC82959BC8F}.Release|x86.ActiveCfg = Release|Any CPU
+		{C954FAD5-864F-425A-BA68-8DC82959BC8F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
