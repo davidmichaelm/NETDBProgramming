@@ -71,16 +71,9 @@ namespace SleepData
                         string[] splitLine = line.Split(',');
                         string[] dateStrings = splitLine[0].Split('/');
 
-                        int[] dateInts = new int[3];
-                        for (int i = 0; i < dateInts.Length; i++)
-                        {
-                            dateInts[i] = int.Parse(dateStrings[i]);
-                        }
-                        
-                        DateTime date = new DateTime(dateInts[2], dateInts[0], dateInts[1]);
+                        DateTime date = DateTime.Parse(splitLine[0]);
 
-                        Console.WriteLine("Week of " + date.ToString("MMM, dd, yyyy", 
-                            CultureInfo.CreateSpecificCulture("en-US")));
+                        Console.WriteLine("Week of " + date.ToString("MMM, dd, yyyy"));
 
                         Console.WriteLine(" Su Mo Tu We Th Fr Sa Tot Avg");
                         Console.WriteLine(" -- -- -- -- -- -- -- --- ---");
