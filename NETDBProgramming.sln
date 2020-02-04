@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketConsole", "TicketCons
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testing", "Testing\Testing.csproj", "{C954FAD5-864F-425A-BA68-8DC82959BC8F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StringFormatting", "StringFormatting\StringFormatting.csproj", "{5031AEFC-56E4-4BA8-8EAA-E1FDBF7FA5A8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SleepData", "SleepData\SleepData.csproj", "{C5097D06-1BAA-4F9F-AB84-C7F1F0ADEFB2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -43,5 +47,13 @@ Global
 		{C954FAD5-864F-425A-BA68-8DC82959BC8F}.Debug|x86.Build.0 = Debug|Any CPU
 		{C954FAD5-864F-425A-BA68-8DC82959BC8F}.Release|x86.ActiveCfg = Release|Any CPU
 		{C954FAD5-864F-425A-BA68-8DC82959BC8F}.Release|x86.Build.0 = Release|Any CPU
+		{5031AEFC-56E4-4BA8-8EAA-E1FDBF7FA5A8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5031AEFC-56E4-4BA8-8EAA-E1FDBF7FA5A8}.Debug|x86.Build.0 = Debug|Any CPU
+		{5031AEFC-56E4-4BA8-8EAA-E1FDBF7FA5A8}.Release|x86.ActiveCfg = Release|Any CPU
+		{5031AEFC-56E4-4BA8-8EAA-E1FDBF7FA5A8}.Release|x86.Build.0 = Release|Any CPU
+		{C5097D06-1BAA-4F9F-AB84-C7F1F0ADEFB2}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C5097D06-1BAA-4F9F-AB84-C7F1F0ADEFB2}.Debug|x86.Build.0 = Debug|Any CPU
+		{C5097D06-1BAA-4F9F-AB84-C7F1F0ADEFB2}.Release|x86.ActiveCfg = Release|Any CPU
+		{C5097D06-1BAA-4F9F-AB84-C7F1F0ADEFB2}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
