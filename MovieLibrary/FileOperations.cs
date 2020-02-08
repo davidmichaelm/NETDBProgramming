@@ -23,6 +23,7 @@ namespace MovieLibrary
                     using (var sw = new StreamWriter(_moviesFile))
                     {
                         sw.WriteLine("movieId,title,genres");
+                        logger.Info("Created new movies.csv");
                     }
                 }
                 catch (Exception e)
