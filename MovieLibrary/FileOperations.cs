@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using NLog;
 
 namespace MovieLibrary
 {
@@ -14,6 +15,22 @@ namespace MovieLibrary
             var logger = NLog.LogManager.GetCurrentClassLogger();
             
             List<string[]> movies = new List<string[]>();
+
+            if (!File.Exists(_moviesFile))
+            {
+                try
+                {
+                    using (var sw = new StreamWriter(_moviesFile))
+                    {
+                        sw.WriteLine("movieId,title,genres");
+                    }
+                }
+                catch (Exception e)
+                {
+                    logger.Fatal("Movie file could not be created");
+                    Environment.Exit(0);
+                }
+            }
 
             try
             {
@@ -60,10 +77,19 @@ namespace MovieLibrary
         
         public void AppendMovie(Movie movie)
         {
-            var sw = new StreamWriter(_moviesFile, true);
-                
-            sw.WriteLine(movie.ToString());
-            sw.Close();
+            try
+            {
+                using (var sw = new StreamWriter(_moviesFile, true))
+                {
+                    sw.WriteLine(movie.ToString());
+                }
+            }
+            catch (Exception e)
+            {
+                var logger = NLog.LogManager.GetCurrentClassLogger();
+                logger.Fatal("Could not write to file");
+                Environment.Exit(0);
+            }
         }
     }
 }
