@@ -1,6 +1,6 @@
 namespace TicketConsole
 {
-    class Ticket
+    class Ticket : ITicket
     {
         private static int _ticketCount;
 

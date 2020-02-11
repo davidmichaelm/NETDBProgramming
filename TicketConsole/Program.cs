@@ -15,6 +15,8 @@ namespace TicketConsole
 {
     class Program
     {
+        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+      
         public static void Main(string[] args)
         {
             new Program();
@@ -33,6 +35,8 @@ namespace TicketConsole
             {
                 _tickets.Add(new Ticket(ticket[0], ticket[1], ticket[2], ticket[3], ticket[4], ticket[5], ticket[6]));
             }
+            
+            logger.Info($"Loaded {_tickets.Count} tickets");
 
             // Let the user decide what to do
             var keepRunning = true;

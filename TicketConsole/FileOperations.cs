@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -5,42 +6,57 @@ namespace TicketConsole
 {
     class FileOperations
     {
+        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+        
         private string _file = "Tickets.csv";
             
         // returns a List with an array of strings, each string corresponding with the ticket fields
         public List<string[]> ReadTickets()
         {
             List<string[]> tickets = new List<string[]>();
-            if (File.Exists(_file))
-            {
-                    
-                StreamReader sr = new StreamReader(_file);
 
-                int counter = 0;
-                while (!sr.EndOfStream)
+            try
+            {
+                using (StreamReader sr = new StreamReader(_file))
                 {
-                    string line = sr.ReadLine();
-                    if (counter > 0) // Ignore the headers
+                    int counter = 0;
+                    while (!sr.EndOfStream)
                     {
-                        if (line != null)
+                        string line = sr.ReadLine();
+                        if (counter > 0) // Ignore the headers
                         {
-                            string[] lineArray = line.Split(',');
-                            tickets.Add(lineArray);
+                            if (line != null)
+                            {
+                                string[] lineArray = line.Split(',');
+                                tickets.Add(lineArray);
+                            }
                         }
+
+                        counter++;
                     }
-                    counter++;
                 }
-                sr.Close();
             }
+            catch (Exception e)
+            {
+                logger.Error(e, "Reading tickets file failed");
+            }
+            
             return tickets;
         }
 
         public void AppendTicket(Ticket ticket)
         {
-            var sw = new StreamWriter(_file, true);
-                
-            sw.WriteLine(ticket.ToString());
-            sw.Close();
+            try
+            {
+                using (var sw = new StreamWriter(_file, true))
+                {
+                    sw.WriteLine(ticket.ToString());
+                }
+            }
+            catch (Exception e)
+            {
+                logger.Error(e, "Writing to tickets file failed");
+            }
         }
     }
 }
