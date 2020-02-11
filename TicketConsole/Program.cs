@@ -10,33 +10,21 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 
 namespace TicketConsole
 {
-    class MainClass
+    class Program
     {
         public static void Main(string[] args)
         {
-            Driver driver = new Driver();
-            driver.Run();
+            new Program();
         }
-    }
+        
+        private UserInput _input = new UserInput();
+        private List<Ticket> _tickets = new List<Ticket>();
+        private FileOperations _fo = new FileOperations();
 
-    class Driver
-    {
-        private UserInput _input;
-        private List<Ticket> _tickets;
-        private FileOperations _fo;
-
-        public Driver()
-        {
-            _input = new UserInput();
-            _tickets = new List<Ticket>();
-            _fo = new FileOperations();
-        }
-
-        public void Run()
+        public Program()
         {
             // open file and create existing tickets
             List<string[]> ticketArrays = _fo.ReadTickets();
@@ -79,138 +67,4 @@ namespace TicketConsole
             }
         }
     }
-
-    class UserInput
-        {
-            public string GetMenuOption()
-            {
-                Console.WriteLine("1) Read current tickets.");
-                Console.WriteLine("2) Add new tickets to the file.");
-                Console.WriteLine("Enter any other key to exit.");
-                return Console.ReadLine();
-            }
-
-            public string GetTicketSummary()
-            {
-                Console.WriteLine("Enter the ticket summary:");
-                return Console.ReadLine();
-            }
-
-            public string GetTicketStatus()
-            {
-                Console.WriteLine("Enter the ticket status (open/closed):");
-                return Console.ReadLine();
-            }
-
-            public string GetTicketPriority()
-            {
-                Console.WriteLine("Enter the ticket priority (low, medium, high):");
-                return Console.ReadLine();
-            }
-
-            public string GetTicketSubmitter()
-            {
-                Console.WriteLine("Enter the person who submitted the ticket:");
-                return Console.ReadLine();
-            }
-
-            public string GetTicketAssigned()
-            {
-                Console.WriteLine("Enter the person assigned to the ticket:");
-                return Console.ReadLine();
-            }
-
-            public string GetTicketWatching()
-            {
-                Console.WriteLine("Enter the person watching the ticket:");
-                Console.WriteLine("(If multiple people are watching, separate names with the | symbol)");
-                return Console.ReadLine();
-            }
-        }
-
-        class Ticket
-        {
-            private static int _ticketCount;
-
-            public Ticket(string id, string summary, string status, string priority, string submitter, string assigned, string watching)
-            {
-                if (id == null)
-                {
-                    Id = ++_ticketCount;
-                }
-                else
-                {
-                    Id = int.Parse(id);
-                    _ticketCount++;
-                }
-                
-                Summary = summary;
-                Status = status;
-                Priority = priority;
-                Submitter = submitter;
-                Assigned = assigned;
-                Watching = watching;
-            }
-
-            public int Id { get; set; }
-
-            public string Summary { get; set; }
-
-            public string Status { get; set; }
-
-            public string Priority { get; set; }
-
-            public string Submitter { get; set; }
-
-            public string Assigned { get; set; }
-
-            public string Watching { get; set; }
-
-            public override string ToString()
-            {
-                return $"{Id},{Summary},{Status},{Priority},{Submitter},{Assigned},{Watching}";
-            }
-        }
-
-        class FileOperations
-        {
-            private string _file = "Tickets.csv";
-            
-            // returns a List with an array of strings, each string corresponding with the ticket fields
-            public List<string[]> ReadTickets()
-            {
-                List<string[]> tickets = new List<string[]>();
-                if (File.Exists(_file))
-                {
-                    
-                    StreamReader sr = new StreamReader(_file);
-
-                    int counter = 0;
-                    while (!sr.EndOfStream)
-                    {
-                        string line = sr.ReadLine();
-                        if (counter > 0) // Ignore the headers
-                        {
-                            if (line != null)
-                            {
-                                string[] lineArray = line.Split(',');
-                                tickets.Add(lineArray);
-                            }
-                        }
-                        counter++;
-                    }
-                    sr.Close();
-                }
-                return tickets;
-            }
-
-            public void AppendTicket(Ticket ticket)
-            {
-                var sw = new StreamWriter(_file, true);
-                
-                sw.WriteLine(ticket.ToString());
-                sw.Close();
-            }
-        }
-    
 }
