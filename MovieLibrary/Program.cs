@@ -90,9 +90,10 @@ namespace MovieLibrary
 
         public bool MovieTitleExists(string title)
         {
+            title = title.ToUpper();
             foreach (Movie m in _movies.Values)
             {
-                if (m.Title.Equals(title))
+                if (m.Title.ToUpper().Equals(title))
                 {
                     return true;
                 }
