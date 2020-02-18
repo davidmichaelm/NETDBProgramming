@@ -55,6 +55,11 @@
     <Compile Include="UserInput.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="movies.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
     <None Include="NLog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
