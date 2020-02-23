@@ -4,31 +4,47 @@ using System.IO;
 
 namespace TicketConsole
 {
-    class FileOperations
+    public class FileOperations
     {
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
-        
-        private string _file = "Tickets.csv";
-            
-        // returns a List with an array of strings, each string corresponding with the ticket fields
-        public List<string[]> ReadTickets()
+
+        private Dictionary<string, string> _files = new Dictionary<string, string>
         {
-            List<string[]> tickets = new List<string[]>();
+            ["Bug"] = "Tickets.csv",
+            ["Enhancement"] = "Enhancements.csv",
+            ["Task"] = "Task.csv"
+        };
+
+        // returns a List with an array of strings, each string corresponding with the ticket fields
+        public List<Dictionary<string, string>> ReadTickets(TicketType type)
+        {
+            var tickets = new List<Dictionary<string, string>>();
 
             try
             {
-                using (StreamReader sr = new StreamReader(_file))
+                using (StreamReader sr = new StreamReader(_files[type.ToString()]))
                 {
                     int counter = 0;
+                    var headers = new List<string>();
                     while (!sr.EndOfStream)
                     {
                         string line = sr.ReadLine();
-                        if (counter > 0) // Ignore the headers
+                        
+                        if (line != null)
                         {
-                            if (line != null)
+                            string[] lineArray = line.Split(',');
+                            if (counter == 0) // Add the headers to a separate list
                             {
-                                string[] lineArray = line.Split(',');
-                                tickets.Add(lineArray);
+                                headers.AddRange(lineArray);
+                            }
+                            else
+                            {
+                                var ticket = new Dictionary<string, string>();
+                                for (int i = 0; i < lineArray.Length; i++)
+                                {
+                                    ticket.Add(headers[i], lineArray[i]);
+                                }
+                                tickets.Add(ticket);
                             }
                         }
 
@@ -40,7 +56,7 @@ namespace TicketConsole
             {
                 logger.Error(e, "Reading tickets file failed");
             }
-            
+
             return tickets;
         }
 
@@ -48,7 +64,7 @@ namespace TicketConsole
         {
             try
             {
-                using (var sw = new StreamWriter(_file, true))
+                using (var sw = new StreamWriter(_files[ticket.Type.ToString()], true))
                 {
                     sw.WriteLine(ticket.ToString());
                 }

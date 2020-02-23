@@ -1,30 +1,20 @@
+using System.Collections.Generic;
+
 namespace TicketConsole
 {
-    class Ticket : ITicket
+    public abstract class Ticket : ITicket
     {
-        private static int _ticketCount;
+        public abstract TicketType Type { get; }
 
-        public Ticket(string id, string summary, string status, string priority, string submitter, string assigned, string watching)
+        public virtual List<string> GetProperties()
         {
-            if (id == null)
+            return new List<string>
             {
-                Id = ++_ticketCount;
-            }
-            else
-            {
-                Id = int.Parse(id);
-                _ticketCount++;
-            }
-                
-            Summary = summary;
-            Status = status;
-            Priority = priority;
-            Submitter = submitter;
-            Assigned = assigned;
-            Watching = watching;
+              "TicketID","Summary","Status","Priority","Submitter","Assigned","Watching"  
+            };
         }
 
-        public int Id { get; set; }
+        public int TicketID { get; set; }
 
         public string Summary { get; set; }
 
@@ -38,9 +28,15 @@ namespace TicketConsole
 
         public string Watching { get; set; }
 
+        public virtual string Display()
+        {
+            return $"{TicketID, -10}{Summary, -25}{Status, -15}{Priority, -15}{Submitter, -15}{Assigned, -15}{Watching, -15}";
+
+        }
+
         public override string ToString()
         {
-            return $"{Id},{Summary},{Status},{Priority},{Submitter},{Assigned},{Watching}";
+            return $"{TicketID},{Summary},{Status},{Priority},{Submitter},{Assigned},{Watching}";
         }
     }
 }

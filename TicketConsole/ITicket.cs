@@ -3,7 +3,7 @@ namespace TicketConsole
     public interface ITicket
     {
         
-        int Id { get; set; }
+        int TicketID { get; set; }
 
         string Summary { get; set; }
 
