@@ -16,7 +16,13 @@ namespace MovieLibrary
         public string GetMovieTitle()
         {
             Console.WriteLine("Enter the movie title:");
-            return Console.ReadLine();
+            var title = Console.ReadLine();
+            while (DuplicateChecker.MovieTitleExists(title))
+            {
+                Console.WriteLine("Movie title already exists. Enter a different movie title:");
+                title = Console.ReadLine();
+            }
+            return title;
         }
 
         public string GetMovieGenres()
@@ -40,6 +46,15 @@ namespace MovieLibrary
             }
 
             return genres.Count == 0 ? "(no genres listed)" : String.Join("|", genres);
+        }
+
+        public void DisplayMovies(Dictionary<int, Movie> movies)
+        {
+            Console.WriteLine($"{"ID", 10} | {"Movie", -90} | {"Genres", -40}");
+            foreach (var movie in movies.Values)
+            {
+                Console.WriteLine($"{movie.Id, 10} | {movie.Title, -90} | {movie.Genres.Replace("|", ", "), -40}");
+            }
         }
     }
 }

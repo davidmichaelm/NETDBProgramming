@@ -48,16 +48,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DuplicateChecker.cs" />
     <Compile Include="FileOperations.cs" />
+    <Compile Include="MediaManager.cs" />
     <Compile Include="Movie.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserInput.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="movies.csv">
+    <Content Include="movies.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="NLog.config">
