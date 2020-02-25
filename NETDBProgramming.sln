@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketConsole", "TicketConsole\TicketConsole.csproj", "{07CF640C-8E48-4495-BC7B-A1577008549F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testing", "Testing\Testing.csproj", "{C954FAD5-864F-425A-BA68-8DC82959BC8F}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SleepData", "SleepData\SleepData.csproj", "{C5097D06-1BAA-4F9F-AB84-C7F1F0ADEFB2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieLibrary", "MovieLibrary\MovieLibrary.csproj", "{7E9F5E1F-7735-4882-98A2-0DFD31705663}"
@@ -19,10 +17,6 @@ Global
 		{07CF640C-8E48-4495-BC7B-A1577008549F}.Debug|x86.Build.0 = Debug|x86
 		{07CF640C-8E48-4495-BC7B-A1577008549F}.Release|x86.ActiveCfg = Release|x86
 		{07CF640C-8E48-4495-BC7B-A1577008549F}.Release|x86.Build.0 = Release|x86
-		{C954FAD5-864F-425A-BA68-8DC82959BC8F}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{C954FAD5-864F-425A-BA68-8DC82959BC8F}.Debug|x86.Build.0 = Debug|Any CPU
-		{C954FAD5-864F-425A-BA68-8DC82959BC8F}.Release|x86.ActiveCfg = Release|Any CPU
-		{C954FAD5-864F-425A-BA68-8DC82959BC8F}.Release|x86.Build.0 = Release|Any CPU
 		{C5097D06-1BAA-4F9F-AB84-C7F1F0ADEFB2}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{C5097D06-1BAA-4F9F-AB84-C7F1F0ADEFB2}.Debug|x86.Build.0 = Debug|Any CPU
 		{C5097D06-1BAA-4F9F-AB84-C7F1F0ADEFB2}.Release|x86.ActiveCfg = Release|Any CPU

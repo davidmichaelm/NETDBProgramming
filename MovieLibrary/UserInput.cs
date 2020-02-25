@@ -13,6 +13,17 @@ namespace MovieLibrary
             return Console.ReadLine();
         }
 
+        public Dictionary<string, string> GetMovieInfo()
+        {
+            string title = GetMovieTitle();
+            string genres = GetMovieGenres();
+            return new Dictionary<string, string>
+            {
+                ["Title"] = title,
+                ["Genres"] = genres
+            };
+        }
+
         public string GetMovieTitle()
         {
             Console.WriteLine("Enter the movie title:");

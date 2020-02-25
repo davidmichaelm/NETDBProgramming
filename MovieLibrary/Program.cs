@@ -29,18 +29,9 @@ namespace MovieLibrary
                         _ui.DisplayMovies(_mediaManager.Movies);
                         break;
                     case "2": // Add a movie
-                        string title = _ui.GetMovieTitle();
-                        string genres = _ui.GetMovieGenres();
-
-                        try
-                        {
-                            var newMovie = _mediaManager.CreateMovie(title, genres);
-                            _mediaManager.FileOperations.AppendMovie(newMovie);
-                        }
-                        catch (ArgumentException e)
-                        {
-                            _logger.Error(e.Message);
-                        }
+                        var movieInfo = _ui.GetMovieInfo();
+                        var newMovie = _mediaManager.CreateMovie(movieInfo);
+                        _mediaManager.FileOperations.AppendMovie(newMovie);
                         break;
                     default:
                         keepRunning = false;

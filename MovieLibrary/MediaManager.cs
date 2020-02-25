@@ -21,9 +21,14 @@ namespace MovieLibrary
 
             foreach (var movie in movieArrays)
             {
+                var movieInfo = new Dictionary<string, string>
+                {
+                    ["Title"] = movie[0],
+                    ["Genres"] = movie[1]
+                };
                 try
                 {
-                    CreateMovie(movie[1], movie[2], movie[0]);
+                    CreateMovie(movieInfo, movie[0]);
                 }
                 catch (ArgumentException e)
                 {
@@ -32,9 +37,9 @@ namespace MovieLibrary
             }
         }
         
-        public Movie CreateMovie(string title, string genres, string id = null)
+        public Movie CreateMovie(Dictionary<string, string> movieInfo, string id = null)
         {
-            var newMovie = new Movie(title, genres, id);
+            var newMovie = new Movie(movieInfo["Title"], movieInfo["Genres"], id);
 
             try
             {
@@ -42,7 +47,7 @@ namespace MovieLibrary
             }
             catch (ArgumentException e)
             {
-                throw new ArgumentException("MovieId " + newMovie.Id + " already exists");
+                _logger.Error("MovieId " + newMovie.Id + " already exists");
             }
 
             return newMovie;
