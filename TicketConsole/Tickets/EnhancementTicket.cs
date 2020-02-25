@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace TicketConsole
+namespace TicketConsole.Tickets
 {
     public class EnhancementTicket : Ticket
     {

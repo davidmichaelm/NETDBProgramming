@@ -1,4 +1,4 @@
-namespace TicketConsole
+namespace TicketConsole.Tickets
 {
     public interface ITicket
     {

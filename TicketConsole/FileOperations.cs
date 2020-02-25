@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using TicketConsole.Tickets;
 
 namespace TicketConsole
 {
@@ -10,9 +11,9 @@ namespace TicketConsole
 
         private Dictionary<string, string> _files = new Dictionary<string, string>
         {
-            ["Bug"] = "Tickets.csv",
-            ["Enhancement"] = "Enhancements.csv",
-            ["Task"] = "Task.csv"
+            ["Bug"] = "Spreadsheets/Tickets.csv",
+            ["Enhancement"] = "Spreadsheets/Enhancements.csv",
+            ["Task"] = "Spreadsheets/Task.csv"
         };
 
         // returns a List with an array of strings, each string corresponding with the ticket fields
