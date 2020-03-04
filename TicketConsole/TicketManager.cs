@@ -9,7 +9,6 @@ namespace TicketConsole
     public class TicketManager
     {
         public FileOperations FileOperations = new FileOperations();
-        private UserInterface _ui = new UserInterface();
 
         private Dictionary<string, int> ticketCounts = new Dictionary<string, int>
         {
