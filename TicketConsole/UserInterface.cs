@@ -1,15 +1,19 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using TicketConsole.Tickets;
 
 namespace TicketConsole
 {
-    class UserInput
+    class UserInterface
     {
         public string GetMenuOption()
         {
             Console.WriteLine("1) Read current tickets.");
             Console.WriteLine("2) Add new tickets to the file.");
+            Console.WriteLine("3) Search tickets.");
             Console.WriteLine("Enter any other key to exit.");
             return Console.ReadLine();
         }
@@ -260,6 +264,47 @@ namespace TicketConsole
             }
 
             return dueDate;
+        }
+
+        public string GetSearchQuery()
+        {
+            Console.WriteLine("Enter search query:");
+            var input = Console.ReadLine();
+            while (input == null || input.Equals(""))
+            {
+                input = Console.ReadLine();
+            }
+            return input;
+        }
+
+        public string GetSearchType()
+        {
+            Console.WriteLine("1) Search in status");
+            Console.WriteLine("2) Search in priorities");
+            Console.WriteLine("3) Search in submitters");
+
+            var input = Console.ReadLine();
+            while (!new [] {"1", "2", "3"}.Contains(input))
+            {
+                input = Console.ReadLine();
+            }
+            
+            switch (input)
+            {
+                case "1":
+                    return "Status";
+                case "2":
+                    return "Priority";
+                case "3":
+                default:
+                    return "Submitter";
+            }
+        }
+
+        public void DisplaySearchResults(List<List<Ticket>> results)
+        {
+            Console.WriteLine($"Total results: {results.Count}");
+            DisplayTickets(results);
         }
     }
 }

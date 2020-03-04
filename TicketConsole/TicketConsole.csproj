@@ -55,7 +55,7 @@
     <Compile Include="Tickets\TaskTicket.cs" />
     <Compile Include="Tickets\Ticket.cs" />
     <Compile Include="Tickets\TicketType.cs" />
-    <Compile Include="UserInput.cs" />
+    <Compile Include="UserInterface.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="NLog.config">

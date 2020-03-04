@@ -1,12 +1,13 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TicketConsole.Tickets;
 
 namespace TicketConsole
 {
     public class TicketManager
     {
-        public List<Ticket> Tickets = new List<Ticket>();
         public FileOperations FileOperations = new FileOperations();
 
         private Dictionary<string, int> ticketCounts = new Dictionary<string, int>
@@ -15,7 +16,7 @@ namespace TicketConsole
             ["Enhancement"] = 0,
             ["Task"] = 0
         };
-        
+
         private Dictionary<string, List<Ticket>> TicketLists = new Dictionary<string, List<Ticket>>
         {
             ["Bug"] = new List<Ticket>(),
@@ -55,6 +56,7 @@ namespace TicketConsole
                     ticket = CreateBugTicket(ticketInfo);
                     break;
             }
+
             TicketLists[ticketInfo["Type"]].Add(ticket);
             return ticket;
         }
@@ -67,7 +69,7 @@ namespace TicketConsole
             ticket.Submitter = ticketInfo["Submitter"];
             ticket.Assigned = ticketInfo["Assigned"];
             ticket.Watching = ticketInfo["Watching"];
-            
+
             if (ticketInfo.TryGetValue("TicketID", out var result))
             {
                 ticket.TicketID = int.Parse(result);
@@ -116,49 +118,45 @@ namespace TicketConsole
         public void ReadAllTickets()
         {
             var allTickets = new List<Dictionary<string, string>>();
-            allTickets.AddRange(ReadBugTickets());
-            allTickets.AddRange(ReadEnhancementTickets());
-            allTickets.AddRange(ReadTaskTickets());
-
-            foreach (var ticketInfo in allTickets)
+            foreach (TicketType ticketType in Enum.GetValues(typeof(TicketType)))
             {
-                var newTicket = CreateNewTicket(ticketInfo);
-                Tickets.Add(newTicket);
+                var tickets = FileOperations.ReadTickets(ticketType);
+                foreach (var ticket in tickets)
+                {
+                    ticket["Type"] = ticketType.ToString();
+                }
+                allTickets.AddRange(tickets);
             }
             
+            foreach (var ticketInfo in allTickets)
+            {
+                CreateNewTicket(ticketInfo);
+            }
         }
 
-        private List<Dictionary<string, string>> ReadBugTickets()
+        public List<List<Ticket>> SearchTickets(string searchType, string searchQuery)
         {
-            var tickets = FileOperations.ReadTickets(TicketType.Bug);
-            foreach (var ticket in tickets)
+            List<List<Ticket>> resultLists = new List<List<Ticket>>();
+            foreach (var ticketList in GetTicketLists())
             {
-                ticket["Type"] = TicketType.Bug.ToString();
+                switch (searchType)
+                {
+                    case "Status":
+                        resultLists.Add(ticketList.Where(t => t.Status.Contains(searchQuery)).ToList());
+                        break;
+                    case "Priority":
+                        resultLists.Add(ticketList.Where(t => t.Priority.Contains(searchQuery)).ToList());
+                        break;
+                    case "Submitter":
+                    default:
+                        resultLists.Add(ticketList.Where(t => t.Submitter.Contains(searchQuery)).ToList());
+                        break;
+                }
             }
 
-            return tickets;
+            return resultLists;
         }
         
-        private List<Dictionary<string, string>> ReadEnhancementTickets()
-        {
-            var tickets = FileOperations.ReadTickets(TicketType.Enhancement);
-            foreach (var ticket in tickets)
-            {
-                ticket["Type"] = TicketType.Enhancement.ToString();
-            }
-
-            return tickets;
-        }
         
-        private List<Dictionary<string, string>> ReadTaskTickets()
-        {
-            var tickets = FileOperations.ReadTickets(TicketType.Task);
-            foreach (var ticket in tickets)
-            {
-                ticket["Type"] = TicketType.Task.ToString();
-            }
-
-            return tickets;
-        }
     }
 }

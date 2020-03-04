@@ -1,12 +1,10 @@
 ﻿/*
-    Complete and submit first phase of project
-    - Build data file with initial system tickets and data in a CSV
-    - Write Console application to process and add records to the CSV file
-
-    Tickets.csv
-    TicketID, Summary, Status, Priority, Submitter, Assigned, Watching
-    1,This is a bug ticket,Open,High,Drew Kjell,Jane Doe,Drew Kjell|John Smith|Bill Jones
+    User should be able to perform a search based on status, priority or submitter
+    The search results should display the results and the number of matches
+    One single search should be return results from all ticket types (Concatenation Operator)
 */
+
+using System;
 
 namespace TicketConsole
 {
@@ -19,13 +17,13 @@ namespace TicketConsole
             new Program();
         }
         
-        private UserInput _ui = new UserInput();
+        private UserInterface _ui = new UserInterface();
         private TicketManager _ticketManager = new TicketManager();
 
         public Program()
         {
             _ticketManager.ReadAllTickets();
-            logger.Info($"Loaded {_ticketManager.Tickets.Count} tickets");
+            //logger.Info($"Loaded {_ticketManager.Tickets.Count} tickets"); //TODO: update for ticketlists
 
             // Let the user decide what to do
             var keepRunning = true;
@@ -40,6 +38,11 @@ namespace TicketConsole
                         var newTicketInfo = _ui.GetNewTicket();
                         var newTicket = _ticketManager.CreateNewTicket(newTicketInfo);
                         _ticketManager.FileOperations.AppendTicket(newTicket);
+                        break;
+                    case "3":
+                        var searchType = _ui.GetSearchType();
+                        var searchQuery = _ui.GetSearchQuery();
+                        _ui.DisplaySearchResults(_ticketManager.SearchTickets(searchType, searchQuery));
                         break;
                     default:
                         keepRunning = false;
