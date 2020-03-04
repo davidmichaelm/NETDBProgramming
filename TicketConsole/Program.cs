@@ -23,7 +23,9 @@ namespace TicketConsole
         public Program()
         {
             _ticketManager.ReadAllTickets();
-            //logger.Info($"Loaded {_ticketManager.Tickets.Count} tickets"); //TODO: update for ticketlists
+            
+            
+            logger.Info($"Loaded {_ticketManager.GetTotalTickets()} tickets");
 
             // Let the user decide what to do
             var keepRunning = true;

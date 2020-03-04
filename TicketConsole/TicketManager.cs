@@ -9,6 +9,7 @@ namespace TicketConsole
     public class TicketManager
     {
         public FileOperations FileOperations = new FileOperations();
+        private UserInterface _ui = new UserInterface();
 
         private Dictionary<string, int> ticketCounts = new Dictionary<string, int>
         {
@@ -36,6 +37,17 @@ namespace TicketConsole
             }
 
             return ticketLists;
+        }
+
+        public int GetTotalTickets()
+        {
+            var numTickets = 0;
+            foreach (var list in GetTicketLists())
+            {
+                numTickets += list.Count;
+            }
+
+            return numTickets;
         }
 
         public Ticket CreateNewTicket(Dictionary<string, string> ticketInfo)
