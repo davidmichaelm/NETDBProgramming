@@ -303,8 +303,21 @@ namespace TicketConsole
 
         public void DisplaySearchResults(List<List<Ticket>> results)
         {
-            Console.WriteLine($"Total results: {results.Count}");
-            DisplayTickets(results);
+            if (results != null)
+            {
+                var numTickets = 0;
+                foreach (var list in results)
+                {
+                    numTickets += list.Count;
+                }
+
+                Console.WriteLine($"Total results: {numTickets}");
+
+                if (numTickets > 0)
+                {
+                    DisplayTickets(results);
+                }
+            }
         }
     }
 }
