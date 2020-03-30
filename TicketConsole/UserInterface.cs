@@ -22,6 +22,10 @@ namespace TicketConsole
         {
             foreach (var list in tickets)
             {
+                if (list.Count == 0)
+                {
+                    continue;
+                }
                 // Write headers
                 Console.WriteLine(list[0].Type + " Tickets");
                 var headers = list[0].GetProperties();
@@ -303,8 +307,19 @@ namespace TicketConsole
 
         public void DisplaySearchResults(List<List<Ticket>> results)
         {
-            Console.WriteLine($"Total results: {results.Count}");
+            Console.WriteLine($"Total results: {GetResultsCount(results)}");
             DisplayTickets(results);
+        }
+
+        private int GetResultsCount(List<List<Ticket>> results)
+        {
+            var counter = 0;
+            foreach (var list in results)
+            {
+                counter += list.Count;
+            }
+
+            return counter;
         }
     }
 }
